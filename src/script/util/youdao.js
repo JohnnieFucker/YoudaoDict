@@ -19,7 +19,7 @@ class Youdao {
   }
 
   parseJsonContent(res) {
-    let word, explains, pronoun, wav, relate = [], more;
+    let word, explains, pronoun, wav_e ,wav_a , relate = [], more;
     res = (typeof res === 'string') ? JSON.parse(res) : res;
 
     word = this.query;
@@ -32,16 +32,16 @@ class Youdao {
     } else {
       explains = res.basic.explains;
       res.basic.phonetic && (pronoun = res.basic.phonetic.split(';')[0]);
-      !this.isChinese(word) && (wav = `https://dict.youdao.com/dictvoice?audio=${word}&type=2`);
+      !this.isChinese(word) && (wav_e = `https://dict.youdao.com/dictvoice?audio=${word}&type=1`) && (wav_a = `https://dict.youdao.com/dictvoice?audio=${word}&type=2`);
       res.web && (relate = res.web);
     }
     more = `http://dict.youdao.com/search?q=${res.query}`;
 
-    return {word, wav, explains, pronoun, relate, more};
+    return {word, wav_e,wav_a, explains, pronoun, relate, more};
   }
 
   parseXmlContent(res) {
-    let word, explains, pronoun, wav, relate = [], more;
+    let word, explains, pronoun, wav_e, wav_a, relate = [], more;
     res = (new DOMParser()).parseFromString(res, 'text/xml');
 
     word = res.querySelector('query').textContent.toString().trim();
@@ -55,7 +55,7 @@ class Youdao {
       let explainsNode = res.querySelector('basic').querySelector('explains').querySelectorAll('ex');
       explains = [...explainsNode].map(v => v.textContent.toString().trim());
       pronoun = res.querySelector('basic').querySelector('phonetic').textContent.toString().trim() || undefined;
-      !this.isChinese(word) && (wav = `https://dict.youdao.com/dictvoice?audio=${word}&type=2`);
+      !this.isChinese(word) && (wav_e = `https://dict.youdao.com/dictvoice?audio=${word}&type=1`) && (wav_a = `https://dict.youdao.com/dictvoice?audio=${word}&type=2`);
 
       let relates = [...res.querySelector('web').querySelector('explain')];
       if (relates.length) {
@@ -69,7 +69,7 @@ class Youdao {
     }
     more = res.querySelector('query')[0].textContent.toString().trim();
 
-    return {word, wav, explains, pronoun, relate, more};
+    return {word, wav_e,wav_a, explains, pronoun, relate, more};
   }
 
   getContent() {

@@ -28,6 +28,8 @@
     "cookies",
     "http://fanyi.youdao.com/",
     "http://dict.youdao.com/",
+    "https://fanyi.youdao.com/",
+    "https://dict.youdao.com/",
     "storage"
   ],
 

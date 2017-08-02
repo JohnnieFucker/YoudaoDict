@@ -60,6 +60,7 @@ class Bubble {
 
 
     document.addEventListener('click', ev => {
+      //$('#y-bubble').remove();
       if (bubble.parentNode) {
         bubble.parentNode.removeChild(bubble);
       }
@@ -82,6 +83,7 @@ class Bubble {
     let youdao = new Youdao(from, youdaoKey, resType, query);
     youdao.getContent()
       .then(data => {
+        console.log(data);
         data.loading = false;
         if (options && options.wordbook) data.wordbook = options.wordbook;
         Bubble.renderBubble(require('../tpl/bubble.pug')(data));
@@ -126,12 +128,20 @@ class Bubble {
   }
 
   static audioPlay() {
-    let audioAction = document.querySelector('#y-bubble-wav');
-    if (audioAction) {
-      audioAction.addEventListener('click', (ev) => {
+    let audioAction_e = document.querySelector('#y-bubble-wav-e');
+    if (audioAction_e) {
+      audioAction_e.addEventListener('click', (ev) => {
         ev.preventDefault();
-        let audioNode = document.querySelector('#y-audio');
-        audioNode.play();
+        let audioNode_e = document.querySelector('#y-audio-e');
+        audioNode_e.play();
+      });
+    }
+    let audioAction_a = document.querySelector('#y-bubble-wav-a');
+    if (audioAction_a) {
+      audioAction_a.addEventListener('click', (ev) => {
+        ev.preventDefault();
+        let audioNode_a = document.querySelector('#y-audio-a');
+        audioNode_a.play();
       });
     }
   }
@@ -174,6 +184,11 @@ class Bubble {
       }
     });
     Bubble.popupQueryInput();
+
+    // let oMeta = document.createElement('meta');
+    // oMeta.httpEquiv = "Content-Security-Policy";
+    // oMeta.content = "media-src https://dict.youdao.com";
+    // document.getElementsByTagName('head')[0].appendChild(oMeta);
   }
 }
 

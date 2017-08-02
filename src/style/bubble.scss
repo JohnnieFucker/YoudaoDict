@@ -22,6 +22,13 @@
   .y-bubble-word {
     color: #f60;
   }
+  .y-bubble-query{
+    a{
+      color: #fff;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+  }
   .y-arrow {
     position: absolute;
     width: 0;
@@ -44,6 +51,7 @@
   }
   .y-bubble-more {
     margin-top: 10px;
+    font-size: 12px;
     .y-pull-left {
       float: left;
     }
