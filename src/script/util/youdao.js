@@ -3,7 +3,8 @@
 class Youdao {
   constructor(from, key, resType, query) {
     [this.from, this.key, this.resType, this.query] = [from, key, resType, query];
-    this.requestUrl = `https://fanyi.youdao.com/openapi.do?keyfrom=${this.from}&key=${this.key}&type=data&doctype=${this.resType}&version=1.1&q=`;
+    // this.requestUrl = `https://fanyi.youdao.com/openapi.do?keyfrom=${this.from}&key=${this.key}&type=data&doctype=${this.resType}&version=1.1&q=`;
+    this.requestUrl = `https://iflow2api.tuishiben.com/api/youdao?keyfrom=${this.from}&key=${this.key}&type=data&doctype=${this.resType}&version=1.1&q=`;
   }
 
   isChinese(str) {
@@ -35,7 +36,7 @@ class Youdao {
       !this.isChinese(word) && (wav_e = `https://dict.youdao.com/dictvoice?audio=${word}&type=1`) && (wav_a = `https://dict.youdao.com/dictvoice?audio=${word}&type=2`);
       res.web && (relate = res.web);
     }
-    more = `http://dict.youdao.com/search?q=${res.query}`;
+    more = `https://dict.youdao.com/search?q=${res.query}`;
 
     return {word, wav_e,wav_a, explains, pronoun, relate, more};
   }
